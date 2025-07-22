@@ -6,6 +6,7 @@ import random
 from collections import Counter, deque
 from heapq import heapify, heappop, heappush, heappushpop, heapreplace, nlargest
 from itertools import accumulate
+from turtle import left
 from typing import Dict, List, Optional, Set, Tuple
 
 from sortedcontainers import SortedList
@@ -159,55 +160,31 @@ class Solution:
             for i, num in enumerate(sorted_nums[:-2])
         )
 
-    # 713. Subarray Product Less Than K
-    def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
-        if k <= 1:
-            return 0
-
-        n = len(nums)
-        count = 0
-        acc_product = nums[0]
-        max_idx = 0
+    # Dutch National Flag
+    def sortColors(self, nums: List[int]) -> None:
+        left_most_one, left_most_two = 0, 0
         for i, num in enumerate(nums):
-            while acc_product < k:
-                if max_idx == n - 1:
-                    return count + (n - i) * (n - i + 1) // 2
-                max_idx += 1
-                acc_product *= nums[max_idx]
-            count += max_idx - i
-            acc_product /= num
+            if num == 0:
+                nums[i], nums[left_most_two] = nums[left_most_two], nums[i]
+                nums[left_most_two], nums[left_most_one] = (
+                    nums[left_most_one],
+                    nums[left_most_two],
+                )
+                left_most_one += 1
+                left_most_two += 1
+            elif num == 1:
+                nums[i], nums[left_most_two] = nums[left_most_two], nums[i]
+                left_most_two += 1
 
-        return count
-
-    def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
-        if k <= 1:
-            return 0
-
-        count = 0
-        acc_product = 1
-        left = 0
-        for right in range(len(nums)):
-            acc_product *= nums[right]
-            while acc_product >= k:
-                acc_product /= nums[left]
-                left += 1
-            count += right - left + 1
-
-        return count
-
-    def findSubarrays(self, arr, target):
-        if target <= 1:
-            return []
-
-        subarrays = []
-        left = 0
-        acc_product = 1
-
-        for right in range(len(arr)):
-            acc_product *= arr[right]
-            while acc_product >= target:
-                acc_product /= arr[left]
-                left += 1
-            for i in range(left, right + 1):
-                subarrays.append(arr[i : right + 1])
-        return subarrays
+    def sortColors(self, nums: List[int]) -> None:
+        low, mid, high = 0, 0, len(nums) - 1
+        while mid <= high:
+            if nums[mid] == 0:
+                nums[mid], nums[low] = nums[low], nums[mid]
+                low += 1
+                mid += 1
+            elif nums[mid] == 2:
+                nums[mid], nums[high] = nums[high], nums[mid]
+                high -= 1
+            else:
+                mid += 1

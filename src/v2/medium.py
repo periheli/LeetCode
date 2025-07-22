@@ -2174,6 +2174,59 @@ class Solution:
         )
         return sum(count * (count - 1) // 2 for count in counter.values())
 
+    # 713. Subarray Product Less Than K
+    def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
+        if k <= 1:
+            return 0
+
+        n = len(nums)
+        count = 0
+        acc_product = nums[0]
+        max_idx = 0
+        for i, num in enumerate(nums):
+            while acc_product < k:
+                if max_idx == n - 1:
+                    return count + (n - i) * (n - i + 1) // 2
+                max_idx += 1
+                acc_product *= nums[max_idx]
+            count += max_idx - i
+            acc_product /= num
+
+        return count
+
+    def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
+        if k <= 1:
+            return 0
+
+        count = 0
+        acc_product = 1
+        left = 0
+        for right in range(len(nums)):
+            acc_product *= nums[right]
+            while acc_product >= k:
+                acc_product /= nums[left]
+                left += 1
+            count += right - left + 1
+
+        return count
+
+    def findSubarrays(self, arr, target):
+        if target <= 1:
+            return []
+
+        subarrays = []
+        left = 0
+        acc_product = 1
+
+        for right in range(len(arr)):
+            acc_product *= arr[right]
+            while acc_product >= target:
+                acc_product /= arr[left]
+                left += 1
+            for i in range(left, right + 1):
+                subarrays.append(arr[i : right + 1])
+        return subarrays
+
 
 if __name__ == "__main__":
     solution = Solution()
