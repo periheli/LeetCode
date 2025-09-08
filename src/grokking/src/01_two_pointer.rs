@@ -48,4 +48,42 @@ impl Solution {
             }
         }
     }
+
+    pub fn compare(str1: String, str2: String) -> bool {
+        fn next_valid(iter: &mut impl Iterator<Item = char>) -> Option<char> {
+            let mut counter = 0;
+            while let Some(c) = iter.next() {
+                match c {
+                    '#' => counter += 1,
+                    _ if counter > 0 => counter -= 1,
+                    _ => return Some(c),
+                }
+            }
+            None
+        }
+
+        let (mut iter1, mut iter2) = (str1.chars().rev(), str2.chars().rev());
+        loop {
+            match (next_valid(&mut iter1), next_valid(&mut iter2)) {
+                (None, None) => return true,
+                (Some(c1), Some(c2)) if c1 == c2 => continue,
+                _ => return false,
+            }
+        }
+    }
+
+    pub fn compare_stream(str1: String, str2: String) -> bool {
+        fn build(s: &str) -> Vec<char> {
+            let mut stack = vec![];
+            s.chars().for_each(|c| {
+                if c == '#' {
+                    stack.pop();
+                } else {
+                    stack.push(c);
+                }
+            });
+            stack
+        }
+        build(&str1) == build(&str2)
+    }
 }

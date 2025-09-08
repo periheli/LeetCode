@@ -188,3 +188,35 @@ class Solution:
                 high -= 1
             else:
                 mid += 1
+
+    def compare(self, str1: str, str2: str) -> bool:
+        idx1 = len(str1) - 1
+        idx2 = len(str2) - 1
+        counter1 = counter2 = 0
+        while True:
+            while idx1 >= 0 and (counter1 > 0 or str1[idx1] == "#"):
+                counter1 += 1 if str1[idx1] == "#" else -1
+                idx1 -= 1
+            while idx2 >= 0 and (counter2 > 0 or str2[idx2] == "#"):
+                counter2 += 1 if str2[idx2] == "#" else -1
+                idx2 -= 1
+            if idx1 < 0 and idx2 < 0:
+                return True
+            if idx1 < 0 or idx2 < 0:
+                return False
+            if idx1 >= 0 and idx2 >= 0 and str1[idx1] != str2[idx2]:
+                return False
+            idx1 -= 1
+            idx2 -= 1
+
+    def compare_stream(self, str1: str, str2: str) -> bool:
+        def build(s: str):
+            stack = deque()
+            for c in s:
+                if c != "#":
+                    stack.append(c)
+                elif stack:
+                    stack.pop()
+            return "".join(stack)
+
+        return build(str1) == build(str2)
