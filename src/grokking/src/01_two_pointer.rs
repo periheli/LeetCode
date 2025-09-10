@@ -86,4 +86,30 @@ impl Solution {
         }
         build(&str1) == build(&str2)
     }
+
+    // 581. Shortest Unsorted Continuous Subarray
+    pub fn find_unsorted_subarray(nums: Vec<i32>) -> i32 {
+        let n = nums.len();
+        if n <= 1 {
+            return 0;
+        }
+
+        let max_idx_left = match (0..n - 1).find(|&i| nums[i] > nums[i + 1]) {
+            Some(idx) => idx,
+            None => return 0,
+        };
+        let min_idx_right = (1..n)
+            .rev()
+            .find(|&i| nums[i] < nums[i - 1])
+            .unwrap_or(n - 1);
+        let (sub_arr_min, sub_arr_max) = nums[max_idx_left..=min_idx_right]
+            .iter()
+            .fold((i32::MAX, i32::MIN), |(min_val, max_val), &x| {
+                (min_val.min(x), max_val.max(x))
+            });
+
+        let start = nums[0..=max_idx_left].partition_point(|&x| x <= sub_arr_min);
+        let end = nums[min_idx_right..n].partition_point(|&x| x < sub_arr_max) + min_idx_right;
+        (end - start) as i32
+    }
 }

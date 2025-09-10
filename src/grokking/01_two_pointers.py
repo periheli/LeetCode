@@ -220,3 +220,50 @@ class Solution:
             return "".join(stack)
 
         return build(str1) == build(str2)
+
+    # 581. Shortest Unsorted Continuous Subarray
+    def sort(self, arr: List[int]) -> int:
+        n = len(arr)
+        max_idx_left = 0
+        while (
+            max_idx_left < n - 1 and arr[max_idx_left] <= arr[max_idx_left + 1]
+        ):
+            max_idx_left += 1
+        if max_idx_left == n - 1:
+            return 0
+        min_idx_right = n - 1
+        while (
+            min_idx_right > 0 and arr[min_idx_right] >= arr[min_idx_right - 1]
+        ):
+            min_idx_right -= 1
+
+        sub_arr_min = min(arr[max_idx_left : min_idx_right + 1])
+        sub_arr_max = max(arr[max_idx_left : min_idx_right + 1])
+
+        sub_arr_start = bisect.bisect_right(
+            arr, sub_arr_min, 0, max_idx_left + 1
+        )
+        sub_arr_end = bisect.bisect_left(arr, sub_arr_max, min_idx_right, n)
+
+        return sub_arr_end - sub_arr_start
+
+    def sort_1path(self, arr: List[int]) -> int:
+        n = len(arr)
+        max_idx_left = 0
+        while (
+            max_idx_left < n - 1 and arr[max_idx_left] <= arr[max_idx_left + 1]
+        ):
+            max_idx_left += 1
+        if max_idx_left == n - 1:
+            return 0
+
+        min_right = arr[max_idx_left + 1]
+        max_right = arr[max_idx_left]
+        sub_arr_end = max_idx_left + 1
+        for i in range(max_idx_left + 1, n):
+            min_right = min(min_right, arr[i])
+            max_right = max(max_right, arr[i])
+            if arr[i] < max_right:
+                sub_arr_end = i + 1
+        sub_arr_start = bisect.bisect_right(arr, min_right, 0, max_idx_left + 1)
+        return sub_arr_end - sub_arr_start
