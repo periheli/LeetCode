@@ -1,19 +1,12 @@
 # pyright: reportRedeclaration=false
-import bisect
-import math
-import random
 import re
-from collections import Counter, defaultdict, deque
-from functools import reduce
-from heapq import heapify, heappop, heappush, heappushpop, heapreplace, nlargest
+from collections import defaultdict, deque
+from heapq import heappop, heappush
 from itertools import accumulate
-from typing import Deque, Dict, List, Optional, Set, Tuple
-
-from sortedcontainers import SortedList
+from typing import List, Optional
 
 from utils import (
     DisjointSet,
-    UnknownDisjointSet,
     adjacent_cells,
     colorize_grid_and_get_size,
 )

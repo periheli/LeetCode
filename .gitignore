@@ -164,6 +164,11 @@ cython_debug/
 # Virtual environments
 venv/
 lc_venv/
+.venv/
+
+# uv
+.python-version
+uv.lock
 
 # IDE-specific files
 .vscode/

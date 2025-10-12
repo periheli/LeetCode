@@ -1,6 +1,3 @@
-from collections import deque
-
-
 class Solution:
     def maxDepth(self, s: str) -> int:
         # left_parentheses_stack

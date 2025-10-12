@@ -1,13 +1,6 @@
 # pyright: reportRedeclaration=false
-import bisect
-import math
-import random
 from collections import Counter, deque
-from heapq import heapify, heappop, heappush, heappushpop, heapreplace, nlargest
-from itertools import accumulate
-from typing import Dict, List, Optional, Set, Tuple
-
-from sortedcontainers import SortedList
+from typing import List
 
 
 class Solution:
@@ -75,8 +68,6 @@ class Solution:
         return "".join(s_list)
 
     def reverseVowels(self, s: str) -> str:
-        from collections import deque
-
         vowels = "aeiouAEIOU"
         vowel_queue = deque(c for c in s if c in vowels)
         s_list = [c if c not in vowels else vowel_queue.pop() for c in s]

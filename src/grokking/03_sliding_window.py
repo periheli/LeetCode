@@ -1,15 +1,7 @@
 # pyright: reportRedeclaration=false
-import bisect
 import math
-import operator
-import random
-from collections import Counter, deque
-from heapq import heapify, heappop, heappush, heappushpop, heapreplace, nlargest
-from itertools import accumulate
-from turtle import left
-from typing import Dict, List, Optional, Set, Tuple
-
-from sortedcontainers import SortedList
+from collections import Counter
+from typing import Optional
 
 
 class ListNode:
@@ -101,8 +93,6 @@ class Solution:
         return mex_len
 
     def find_permutation(self, str1: str, pattern: str) -> bool:
-        from collections import Counter
-
         pattern_counter = Counter(pattern)
         start = 0
         counter = {}
@@ -124,8 +114,6 @@ class Solution:
         return False
 
     def find_permutation2(self, str1: str, pattern: str) -> bool:
-        from collections import Counter
-
         pattern_counter = Counter(pattern)
         matched = 0
         w = len(pattern)
@@ -146,8 +134,6 @@ class Solution:
         return False
 
     def find_string_anagrams(self, str1: str, pattern: str) -> list[int]:
-        from collections import Counter
-
         pattern_counter = Counter(pattern)
         matched = 0
         start = 0
@@ -172,8 +158,6 @@ class Solution:
         return result
 
     def find_sub_string(self, str1: str, pattern: str) -> str:
-        from collections import Counter
-
         pattern_counter = Counter(pattern)
         start = 0
         matched = 0

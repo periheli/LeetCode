@@ -1,12 +1,6 @@
 # support for maintaining a list in sorted order
 # without having to sort the list after each insertion
-import bisect
-import random
-from collections import Counter, deque
-from heapq import heapify, heappop, heappush, heapreplace, nlargest
-from typing import Dict, List, Optional, Set, Tuple
-
-from sortedcontainers import SortedList
+from typing import List, Optional
 
 
 # Definition for a binary tree node.

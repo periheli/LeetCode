@@ -1,23 +1,6 @@
 # pyright: reportRedeclaration=false
-import bisect
-import math
-import operator
-import random
-import re
-from collections import Counter, deque
-from heapq import (
-    heapify,
-    heappop,
-    heappush,
-    heappushpop,
-    heapreplace,
-    merge,
-    nlargest,
-)
-from itertools import accumulate
-from typing import Dict, List, Optional, Set, Tuple
-
-from sortedcontainers import SortedList
+from collections import deque
+from typing import Dict, List, Optional, Tuple
 
 
 class ListNode:
@@ -28,8 +11,6 @@ class ListNode:
 
 class Solution:
     def remove_nodes(self, head: ListNode) -> ListNode:
-        from collections import deque
-
         decreasing_stack = deque()
         curr = head
         while curr is not None:

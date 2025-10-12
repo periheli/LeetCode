@@ -1,9 +1,22 @@
-[tool.black]
-line-length = 80
-
-[tool.isort]
-profile = "black"
-line_length = 80
+[project]
+name = "leetcode"
+version = "0.1.0"
+description = "LeetCode practice and solutions"
+requires-python = ">=3.11"
+dependencies = ["ruff", "pandas", "sortedcontainers", "numpy"]
 
 [tool.ruff]
 line-length = 80
+target-version = "py311"
+extend-exclude = ["*.ipynb"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["F811"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["leetcode"]
